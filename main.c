@@ -29,9 +29,15 @@ extern int memtester_main(void);
 
 int main(void)
 {
-    flashtester_main();
-    memtester_main();
+	int32_t ret1, ret2;
+	
+    ret1 = flashtester_main();
+    ret2 = memtester_main();
 
-    printf("All Tests Done!\n");
+    if (ret1 < 0 || ret2 < 0) {
+        printf("Tests Failed!\n");
+	} else {
+		printf("All Tests Pass!\n");
+	}
 }
 

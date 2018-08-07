@@ -311,6 +311,32 @@ Board: cb2201
       </File>
     </VirtualDirectory>
   </VirtualDirectory>
+  <VirtualDirectory Name="chip_test">
+    <File Name="flashtester.c">
+      <FileOption/>
+    </File>
+    <File Name="memtester.c">
+      <FileOption/>
+    </File>
+    <File Name="memtester.h">
+      <FileOption/>
+    </File>
+    <File Name="sizes.h">
+      <FileOption/>
+    </File>
+    <File Name="tests.c">
+      <FileOption/>
+    </File>
+    <File Name="tests.h">
+      <FileOption/>
+    </File>
+    <File Name="types.h">
+      <FileOption/>
+    </File>
+  </VirtualDirectory>
+  <MonitorProgress>
+    <FlashOperate>126</FlashOperate>
+  </MonitorProgress>
   <BuildConfigs>
     <BuildConfig Name="BuildSet">
       <Target>
@@ -378,11 +404,13 @@ Board: cb2201
         <Endian>little</Endian>
         <UseHardFloat>no</UseHardFloat>
         <UseEnhancedLRW>no</UseEnhancedLRW>
+        <UseContinueBuild>no</UseContinueBuild>
       </Target>
       <Output>
         <OutputName>$(ProjectName)</OutputName>
         <Type>Executable</Type>
-        <CreateHexFile>no</CreateHexFile>
+        <CreateHexFile>yes</CreateHexFile>
+        <CreateBinFile>yes</CreateBinFile>
         <Preprocessor>no</Preprocessor>
         <Disasm>no</Disasm>
         <CallGraph>no</CallGraph>
@@ -445,6 +473,8 @@ Board: cb2201
         <ResetType>Hard Reset</ResetType>
         <SoftResetVal>0</SoftResetVal>
         <ResetAfterLoad>no</ResetAfterLoad>
+        <Dumpcore>no</Dumpcore>
+        <DumpcoreText>$(ProjectPath)/$(ProjectName).cdkcore</DumpcoreText>
         <ConfigICE>
           <IP>localhost</IP>
           <PORT>1025</PORT>
@@ -476,30 +506,4 @@ Board: cb2201
       </Flash>
     </BuildConfig>
   </BuildConfigs>
-  <VirtualDirectory Name="chip_test">
-    <File Name="flashtester.c">
-      <FileOption/>
-    </File>
-    <File Name="memtester.c">
-      <FileOption/>
-    </File>
-    <File Name="memtester.h">
-      <FileOption/>
-    </File>
-    <File Name="sizes.h">
-      <FileOption/>
-    </File>
-    <File Name="tests.c">
-      <FileOption/>
-    </File>
-    <File Name="tests.h">
-      <FileOption/>
-    </File>
-    <File Name="types.h">
-      <FileOption/>
-    </File>
-  </VirtualDirectory>
-  <MonitorProgress>
-    <FlashOperate>126</FlashOperate>
-  </MonitorProgress>
 </Project>

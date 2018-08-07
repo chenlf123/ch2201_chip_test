@@ -36,7 +36,7 @@ extern uint32_t __erodata, __data_end__, __data_start__;
 
 static eflash_handle_t eflash = NULL;
 
-void flash_test(uint32_t start, uint32_t end, uint8_t val)
+int32_t flash_test(uint32_t start, uint32_t end, uint8_t val)
 {
     int ret;
     uint32_t addr;
@@ -58,13 +58,16 @@ void flash_test(uint32_t start, uint32_t end, uint8_t val)
 
     if (ret != 0) {
         printf("-- Failed\n");
+		return -1;
     } else {
         printf("-- OK\n");
+		return 0;
     }
 }
 
 int flashtester_main(void)
 {
+	int32_t ret = 0;
     uint32_t start, end;
 
     start = (uint32_t)&__erodata + ((uint32_t)&__data_end__ - (uint32_t)&__data_start__);
@@ -73,6 +76,7 @@ int flashtester_main(void)
         start = EFLASH_START;
     }
 
+    start += 512;
     start &= 0xFFFFFE00;
     end = EFLASH_START + EFLASH_SIZE;
 
@@ -80,11 +84,22 @@ int flashtester_main(void)
 
     printf("Start Test eFlash\n");
 
-    flash_test(start, end, 0xFF);
-    flash_test(start, end, 0x00);
-    flash_test(start, end, 0x5A);
+    ret = flash_test(start, end, 0xFF);
+	if (ret < 0) {
+		return ret;
+	}
+
+	ret = flash_test(start, end, 0x00);
+	if (ret < 0) {
+		return ret;
+	}
+
+    ret = flash_test(start, end, 0x5A);
+	if (ret < 0) {
+		return ret;
+	}
 
     printf("\n");
 
-    return 0;
+    return ret;
 }

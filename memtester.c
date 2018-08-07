@@ -66,6 +66,7 @@ struct test tests[] = {
 int memtester_main(int argc, char **argv) {
     uint32_t loop, i, size, count;
     ulv *bufa = NULL, *bufb = NULL;
+	int32_t ret = 0;
 
     size = (uint32_t)&__ram_end - (uint32_t)&__end;
     size &= 0xFFFFFFF0;
@@ -86,8 +87,10 @@ int memtester_main(int argc, char **argv) {
             if (!tests[i].name) break;
             printf("  %-20s: ", tests[i].name);
             if (!tests[i].fp(bufa, bufb, count)) {
+				ret = 0;
                 printf("ok\n");
             } else {
+				ret = -1;
                 printf("failed\n");
             }
         }
@@ -95,5 +98,5 @@ int memtester_main(int argc, char **argv) {
     }
     printf("Done.\n");
 
-    return 0;
+    return ret;
 }
